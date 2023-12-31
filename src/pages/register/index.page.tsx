@@ -6,6 +6,7 @@ import {
   Text,
   TextInput,
 } from '@gfrasson-ignite-ui/react'
+import { AxiosError } from 'axios'
 import { useRouter } from 'next/router'
 import { ArrowRight } from 'phosphor-react'
 import { useEffect } from 'react'
@@ -55,7 +56,12 @@ export default function Register() {
         username: data.username,
       })
     } catch (err) {
-      console.log(err)
+      if (err instanceof AxiosError && err?.response?.data?.message) {
+        alert(err.response.data.message)
+        return
+      }
+
+      console.error(err)
     }
   }
 
