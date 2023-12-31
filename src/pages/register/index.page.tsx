@@ -6,7 +6,9 @@ import {
   Text,
   TextInput,
 } from '@gfrasson-ignite-ui/react'
+import { useRouter } from 'next/router'
 import { ArrowRight } from 'phosphor-react'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -31,10 +33,19 @@ export default function Register() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerFormSchema),
   })
+
+  const router = useRouter()
+
+  useEffect(() => {
+    if (router.query.username) {
+      setValue('username', String(router.query.username))
+    }
+  }, [router.query?.username, setValue])
 
   function handleRegister(data: RegisterFormData) {
     console.log(data)
