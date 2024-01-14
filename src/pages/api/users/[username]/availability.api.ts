@@ -82,6 +82,7 @@ export default async function handler(
 
     const isTimeInPast = referenceDate
       .set('hour', time)
+      .tz('America/Sao_Paulo')
       .isBefore(dayjs().tz('America/Sao_Paulo').format())
 
     console.log(referenceDate.set('hour', time))
