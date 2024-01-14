@@ -1,4 +1,5 @@
 import dayjs from 'dayjs'
+import 'dayjs/locale/pt-br'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from '../../../../lib/prisma'
 
@@ -84,5 +85,15 @@ export default async function handler(
     availableTimes,
     blockedDateHour:
       blockedTimes.length > 0 ? dayjs(blockedTimes[0].date).hour() : null,
+    blockedDateGetHour:
+      blockedTimes.length > 0 ? dayjs(blockedTimes[0].date).get('hour') : null,
+    blockedDateGetHours:
+      blockedTimes.length > 0 ? dayjs(blockedTimes[0].date).get('hours') : null,
+    locale:
+      blockedTimes.length > 0 ? dayjs(blockedTimes[0].date).locale() : null,
+    localeLocal:
+      blockedTimes.length > 0
+        ? dayjs(blockedTimes[0].date).locale('pt-br').hour()
+        : null,
   })
 }
