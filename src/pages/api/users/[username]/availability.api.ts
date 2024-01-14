@@ -87,8 +87,6 @@ export default async function handler(
     return !isTimeBlocked && !isTimeInPast
   })
 
-  console.log(dayjs(blockedTimes[0].date).tz('America/Sao_Paulo'))
-
   return res.json({ possibleTimes, availableTimes })
   // return res.json({
   //   possibleTimes,
