@@ -85,7 +85,7 @@ export default async function handler(
       .isBefore(dayjs().tz('America/Sao_Paulo').format())
 
     console.log(
-      referenceDate.set('hour', time).toDate(),
+      referenceDate.set('hour', time).utc().toDate(),
       dayjs().tz('America/Sao_Paulo').format(),
       referenceDate
         .set('hour', time)
