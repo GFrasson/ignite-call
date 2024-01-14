@@ -1,5 +1,4 @@
 import dayjs from 'dayjs'
-import 'dayjs/locale/pt-br'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from '../../../../lib/prisma'
 
@@ -104,6 +103,10 @@ export default async function handler(
     localeLocal:
       blockedTimes.length > 0
         ? dayjs(blockedTimes[0].date).locale('pt-br').format()
+        : null,
+    dateUTC:
+      blockedTimes.length > 0
+        ? blockedTimes[0].date.getTimezoneOffset() / 60
         : null,
   })
 }
