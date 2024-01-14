@@ -25,7 +25,7 @@ export async function getGoogleOAuthToken(userId: string) {
     return auth
   }
 
-  const isTokenExpired = dayjs(account.expires_at * 1000).isBefore(new Date())
+  const isTokenExpired = dayjs(account.expires_at * 1000).isBefore(dayjs())
 
   if (isTokenExpired) {
     const { credentials } = await auth.refreshAccessToken()
