@@ -76,47 +76,48 @@ export default async function handler(
 
   const availableTimes = possibleTimes.filter((time) => {
     const isTimeBlocked = blockedTimes.some(
-      (blockedTime) => dayjs(blockedTime.date).hour() === time,
+      (blockedTime) =>
+        dayjs(blockedTime.date).tz('America/Sao_Paulo').hour() === time,
     )
 
-    const isTimeInPast = referenceDate.set('hour', time).isBefore(dayjs())
+    const isTimeInPast = referenceDate
+      .set('hour', time)
+      .isBefore(dayjs().tz('America/Sao_Paulo'))
 
     return !isTimeBlocked && !isTimeInPast
   })
 
-  console.log(dayjs(blockedTimes[0].date).locale('pt-br'))
+  console.log(dayjs(blockedTimes[0].date).tz('America/Sao_Paulo'))
 
-  return res.json({
-    possibleTimes,
-    availableTimes,
-    blockedDateHour:
-      blockedTimes.length > 0
-        ? dayjs(blockedTimes[0].date).locale('pt-br').hour()
-        : null,
-    blockedDateGetHour:
-      blockedTimes.length > 0
-        ? dayjs(blockedTimes[0].date).locale('pt-br').get('hour')
-        : null,
-    blockedDateGetHours:
-      blockedTimes.length > 0
-        ? dayjs(blockedTimes[0].date).locale('pt-br').get('hours')
-        : null,
-    locale:
-      blockedTimes.length > 0
-        ? dayjs(blockedTimes[0].date).locale('pt-br').locale()
-        : null,
-    localeLocal:
-      blockedTimes.length > 0
-        ? dayjs(blockedTimes[0].date).locale('pt-br').format()
-        : null,
-    dateUTC:
-      blockedTimes.length > 0
-        ? blockedTimes[0].date.getTimezoneOffset() / 60
-        : null,
-    dateTimezone: dayjs(blockedTimes[0].date).tz('America/Sao_Paulo').hour(),
-    dateTimezone2: dayjs(blockedTimes[0].date)
-      .tz('America/Sao_Paulo', true)
-      .hour(),
-    dateTimezone3: dayjs.tz(blockedTimes[0].date, 'America/Sao_Paulo').hour(),
-  })
+  return res.json({ possibleTimes, availableTimes })
+  // return res.json({
+  //   possibleTimes,
+  //   availableTimes,
+  //   blockedDateHour:
+  //     blockedTimes.length > 0
+  //       ? dayjs(blockedTimes[0].date).locale('pt-br').hour()
+  //       : null,
+  //   blockedDateGetHour:
+  //     blockedTimes.length > 0
+  //       ? dayjs(blockedTimes[0].date).locale('pt-br').get('hour')
+  //       : null,
+  //   blockedDateGetHours:
+  //     blockedTimes.length > 0
+  //       ? dayjs(blockedTimes[0].date).locale('pt-br').get('hours')
+  //       : null,
+  //   locale:
+  //     blockedTimes.length > 0
+  //       ? dayjs(blockedTimes[0].date).locale('pt-br').locale()
+  //       : null,
+  //   localeLocal:
+  //     blockedTimes.length > 0
+  //       ? dayjs(blockedTimes[0].date).locale('pt-br').format()
+  //       : null,
+  //   dateUTC:
+  //     blockedTimes.length > 0
+  //       ? blockedTimes[0].date.getTimezoneOffset() / 60
+  //       : null,
+  //   dateTimezone: dayjs(blockedTimes[0].date).tz('America/Sao_Paulo').hour(),
+  //   todate: dayjs().tz('America/Sao_Paulo').toDate(),
+  // })
 }
