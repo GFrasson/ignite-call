@@ -82,7 +82,7 @@ export default async function handler(
 
     const isTimeInPast = referenceDate
       .set('hour', time)
-      .isBefore(dayjs().tz('America/Sao_Paulo'), 'minutes')
+      .isBefore(dayjs().tz('America/Sao_Paulo').format())
 
     return !isTimeBlocked && !isTimeInPast
   })
