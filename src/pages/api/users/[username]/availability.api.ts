@@ -1,6 +1,11 @@
 import dayjs from 'dayjs'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from '../../../../lib/prisma'
+import timezone from 'dayjs/plugin/timezone'
+import utc from 'dayjs/plugin/utc'
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
 
 export default async function handler(
   req: NextApiRequest,
@@ -108,5 +113,10 @@ export default async function handler(
       blockedTimes.length > 0
         ? blockedTimes[0].date.getTimezoneOffset() / 60
         : null,
+    dateTimezone: dayjs(blockedTimes[0].date).tz('America/Sao_Paulo').hour(),
+    dateTimezone2: dayjs(blockedTimes[0].date)
+      .tz('America/Sao_Paulo', true)
+      .hour(),
+    dateTimezone3: dayjs.tz(blockedTimes[0].date, 'America/Sao_Paulo').hour(),
   })
 }
