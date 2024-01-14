@@ -79,5 +79,10 @@ export default async function handler(
     return !isTimeBlocked && !isTimeInPast
   })
 
-  return res.json({ possibleTimes, availableTimes })
+  return res.json({
+    possibleTimes,
+    availableTimes,
+    blockedDateHour:
+      blockedTimes.length > 0 ? dayjs(blockedTimes[0].date).hour() : null,
+  })
 }
