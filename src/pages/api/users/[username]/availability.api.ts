@@ -84,28 +84,6 @@ export default async function handler(
       .set('hour', time)
       .isBefore(dayjs().tz('America/Sao_Paulo').format())
 
-    // console.log(
-    //   referenceDate.set('hour', time).toDate(),
-    //   dayjs().tz('America/Sao_Paulo').format(),
-    //   referenceDate
-    //     .set('hour', time)
-    //     .isBefore(dayjs().tz('America/Sao_Paulo').format()),
-    //   referenceDate.set('hour', time).toDate() <
-    //     new Date(dayjs().tz('America/Sao_Paulo').format()),
-    // )
-
-    console.log(
-      referenceDate.set('hour', time).utc().toDate(),
-      dayjs().tz('America/Sao_Paulo').format(),
-      referenceDate
-        .set('hour', time)
-        .utc()
-        .isBefore(dayjs().tz('America/Sao_Paulo').format()),
-      referenceDate.set('hour', time).utc().toDate() <
-        new Date(dayjs().tz('America/Sao_Paulo').format()),
-      referenceDate.set('hour', time).utc().isBefore(dayjs().utc()),
-    )
-
     return !isTimeBlocked && !isTimeInPast
   })
 
